@@ -1,13 +1,13 @@
+import * as dotenv from "dotenv"
+
+dotenv.config()
 export const buscarLojasPorBairro = async (cidade, bairro) => {
-    const apiKey = 'AIzaSyBXwhXGPjo5uBQ3lEBVK3lRre8V7xIz5VE'; 
-    console.log("ENT")
     try {
         
         let endereco = `${bairro}, ${cidade}`;
-        let geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(endereco)}&key=${apiKey}`;
+        let geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(endereco)}&key=${process.env.API_KEY}`;
         let geoResponse = await fetch(geocodingUrl);
         let geoData = await geoResponse.json();
-
 
         if (geoData.status === 'OK') {
             let location = geoData.results[0].geometry.location;
@@ -17,7 +17,7 @@ export const buscarLojasPorBairro = async (cidade, bairro) => {
             
             let radius = 4000; // Raio de busca em metros (aqui, 1000 metros)
             let typeOfPlaces = "store"; // Pode ser modificado conforme sua necessidade
-            let placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${typeOfPlaces}&key=${apiKey}`;
+            let placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${typeOfPlaces}&key=${process.env.API_KEY}`;
             let placesResponse = await fetch(placesUrl);
             let placesData = await placesResponse.json();
 

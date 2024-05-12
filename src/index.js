@@ -1,10 +1,20 @@
 import express from "express";
+import cors from "cors";
 import { buscarLojasPorBairro } from "./request.js";
 
 const app = express();
 const port = 3333;
 app.use(express.json());
 
+
+
+app.use(cors());
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get('/lojas', async (req, res) => {
     const cidade = req.query.cidade;
